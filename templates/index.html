@@ -2,34 +2,46 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-	<title>Name Form</title>
+	<meta charset="utf-8" />
+	<title>Names → Random Numbers</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		body {
+			padding: 2rem;
+		}
+
+		.hint {
+			color: #666;
+			font-size: 0.9rem;
+		}
+	</style>
 </head>
 
-<body>
-	<div align="center">
-		<h1>Ready for nerd shit?</h1>
-		<h2>Too bad its under construction</h2>
-		</ br>
-		<img src="https://github.com/neherdata/sean-initiative.iswadeboggsalive.com/raw/refs/heads/main/weirdal.png"
-			alt="Weird Al" width="300" height="400">
+<body class="container">
+	<h1 class="mb-3">Sean's Micropenis Game Machine</h1>
+
+	{% with messages = get_flashed_messages() %}
+	{% if messages %}
+	<div class="alert alert-warning">
+		{{ messages[0] }}
 	</div>
-	<h1>Enter names (comma-separated):</h1>
-	<form method="post">
-		<input type="text" name="names" style="width:400px;" placeholder="Alice, Bob, Charlie">
-		<input type="submit" value="Submit">
+	{% endif %}
+	{% endwith %}
+
+	<form action="{{ url_for('parse') }}" method="post" class="mb-3">
+		<div class="mb-2">
+			<label for="names" class="form-label">Enter one or more names (comma separated)</label>
+			<input id="names" name="names" class="form-control" type="text"
+				placeholder="e.g. John Doe, Jane Smith, Foo Bar">
+			<div class="hint mt-1">Single text box. Commas, newlines or semicolons work.</div>
+		</div>
+		<button class="btn btn-primary" type="submit">Submit</button>
 	</form>
 
-	{% if names %}
-	<h2>Parsed Names:</h2>
-	<ul>
-		{% for name in names %}
-		<li>{{ name }}</li>
-		{% endfor %}
-	</ul>
-	{% endif %}
+	<footer class="text-muted mt-4">
+		This app parses names, shows a confirmation page, then assigns random numbers 1-10 and highlights duplicates.
+	</footer>
 </body>
 
 </html>
