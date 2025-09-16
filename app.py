@@ -12,6 +12,13 @@ def index():
         names = [n.strip() for n in raw.split(",") if n.strip()]
     return render_template("index.html", names=names)
 
+@app.route("/random/", methods=["GET", "POST"])
+def random():
+    
+    if request.method == "GET":
+        raw = request.form.get("names", "")
+    return render_template("random.html", names=names) 
+
 
 if __name__ == "__main__":
     app.run(debug=True)
