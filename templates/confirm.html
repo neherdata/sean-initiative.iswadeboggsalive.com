@@ -18,6 +18,11 @@
 	<p class="text-muted">I parsed these from your input. If they look wrong, go back and edit. If they're correct,
 		click Confirm.</p>
 
+	{% if names|length > 10 %}
+	<div class="alert alert-danger" role="alert">
+		You can only confirm up to 10 names. Please go back and edit your input.
+	</div>
+	{% else %}
 	<ul class="list-group mb-3">
 		{% for n in names %}
 		<li class="list-group-item">{{ n }}</li>
@@ -31,6 +36,7 @@
 		<button class="btn btn-success" type="submit">Confirm and generate table</button>
 		<a href="{{ url_for('index') }}" class="btn btn-secondary ms-2">Edit input</a>
 	</form>
+	{% endif %}
 </body>
 
 </html>
